@@ -1,0 +1,17 @@
+Jest installation:
+
+npm install --save-dev jest
+
+After installation, functions like expect and stuffs will be available.
+
+package.json
+
+"test": "jest"
+
+describe('App Component', () => {
+  it('Should render', () => {
+    expect(true).toBe(true);
+  });
+});
+
+npm test. Test runs.
