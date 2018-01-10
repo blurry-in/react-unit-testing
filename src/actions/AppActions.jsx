@@ -5,17 +5,21 @@ export const setImagesAction = imagesArr => ({
   payload: imagesArr,
 });
 
-export const setImagesErrorAction = imagesArr => ({
+export const setImagesErrorAction = imagesErr => ({
   type: Actions.SET_IMAGES_ERROR,
-  payload: imagesArr,
+  payload: imagesErr,
+});
+
+export const deleteImageAction = image => ({
+  type: Actions.DELETE_IMAGE,
+  payload: image,
 });
 
 export const getImagesAction = () => dispatch => fetch(AppConstants.IMAGES_API)
-  .then(response => response.json())
-  .then((response) => {
-    dispatch(setImagesAction(response));
-  })
-  .catch(() => {
-    dispatch(setImagesAction(Message.FETCH_IMAGES_FAILED));
+  .then(response => response.json()).then((response) => {
+    const images = response.splice(0, 10);
+    dispatch(setImagesAction(images));
+  }).catch(() => {
+    dispatch(setImagesErrorAction(Message.FETCH_IMAGES_FAILED));
   });
 

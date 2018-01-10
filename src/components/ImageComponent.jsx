@@ -1,19 +1,30 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import './ImageComponent.scss';
+
 const ImageComponent = props => (
-  <div className="text-danger">
+  <div className="image-component text-danger">
     <img
-      alt="Logo"
-      src="https://www.google.co.in/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png"
+      alt={props.data.title}
+      src={props.data.thumbnailUrl}
     />
-    <button onClick={() => { props.onDelete(props.data); }}>Delete Image</button>
+    <br />
+    <button className="btn delete-btn" onClick={() => { props.onDelete(props.data); }}>
+      Delete Image
+    </button>
   </div>
 );
 
 ImageComponent.propTypes = {
   onDelete: PropTypes.func.isRequired,
-  data: PropTypes.shape({}).isRequired,
+  data: PropTypes.shape({
+    albumId: PropTypes.number,
+    id: PropTypes.number,
+    thumbnailUrl: PropTypes.string,
+    title: PropTypes.string,
+    url: PropTypes.string,
+  }).isRequired,
 };
 
 export default ImageComponent;
