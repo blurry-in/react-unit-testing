@@ -20,7 +20,8 @@ export const getImagesAction = () => dispatch => axios.get(AppConstants.IMAGES_A
   .then((response) => {
     const images = response.data.splice(0, 10);
     dispatch(setImagesAction(images));
-  }).catch(() => {
+  }).catch((err) => {
+    console.error(err);
     dispatch(setImagesErrorAction(Message.FETCH_IMAGES_FAILED));
   });
 
