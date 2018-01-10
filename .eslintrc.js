@@ -9,5 +9,6 @@ module.exports = {
         "describe": true,
         "expect": true,
         "beforeAll": true,
+        "jest": true,
     }
 };
