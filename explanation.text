@@ -15,3 +15,10 @@ describe('App Component', () => {
 });
 
 npm test. Test runs.
+
+
+Now if we try to import AppComponent.jsx in our AppComponent.test.jsx, we will get an error.
+Because, jest doesnt know how to handle the scss file.
+
+Fot that purpose, we write jest custom transformers. It basically tells jest how to deal with those files.
+
