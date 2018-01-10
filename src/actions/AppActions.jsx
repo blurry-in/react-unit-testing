@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { Actions, AppConstants, Message } from '../utils/constants';
 
 export const setImagesAction = imagesArr => ({
@@ -15,9 +16,9 @@ export const deleteImageAction = image => ({
   payload: image,
 });
 
-export const getImagesAction = () => dispatch => fetch(AppConstants.IMAGES_API)
-  .then(response => response.json()).then((response) => {
-    const images = response.splice(0, 10);
+export const getImagesAction = () => dispatch => axios.get(AppConstants.IMAGES_API)
+  .then((response) => {
+    const images = response.data.splice(0, 10);
     dispatch(setImagesAction(images));
   }).catch(() => {
     dispatch(setImagesErrorAction(Message.FETCH_IMAGES_FAILED));
