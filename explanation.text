@@ -22,3 +22,6 @@ Because, jest doesnt know how to handle the scss file.
 
 Fot that purpose, we write jest custom transformers. It basically tells jest how to deal with those files.
 
+To use these transformers we need to need to specify them in the jest configuration
+Jest can be configured in package.json itself.
+
