@@ -1,4 +1,4 @@
-Jest installation:
+1. Jest installation:
 
 npm install --save-dev jest
 
@@ -17,11 +17,60 @@ describe('App Component', () => {
 npm test. Test runs.
 
 
+2. Transformers/Mappers
+
 Now if we try to import AppComponent.jsx in our AppComponent.test.jsx, we will get an error.
 Because, jest doesnt know how to handle the scss file.
 
 Fot that purpose, we write jest custom transformers. It basically tells jest how to deal with those files.
 
-To use these transformers we need to need to specify them in the jest configuration
-Jest can be configured in package.json itself.
+
+
+
+3. Setup Files
+
+Now the app test will run. But, we want to render our component right?
+
+We use enzyme for that. We can also use react test utils. But enzyme offers a lot of funtionalities.
+
+npm install --save-dev enzyme
+
+Now we can render our component using shallow from enzyme.
+
+But, there will be new errors. Enzyme doesnt support react 16 out of the box.
+So we need to do use an adapter before running any test.
+
+npm install --save-dev enzyme-adapter-react-16
+
+And we set it up in tests.config.js
+
+/* eslint-disable */
+import { configure } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
+/* eslint-enable */
+
+configure({ adapter: new Adapter() });
+
+Also, for mocking react expects "global.requestAnimationFrame" to be defined.
+
+tests.polyfill.js
+// React 16 expects this to be defined.
+// To get rid of the annoying warning.
+global.requestAnimationFrame = (callback) => {
+  setTimeout(callback, 0);
+};
+
+
+4 Now we tell jest to use the two transformers/mappers and the two setup files in package.json as follows:
+
+  "jest": {
+    "setupFiles": [
+      "<rootDir>/test/tests.polyfill.js",
+      "<rootDir>/test/tests.config.js"
+    ],
+    "moduleNameMapper": {
+      "\\.(scss|css)$": "<rootDir>/test/scss-transformer.js",
+      "\\.(eot|ttf|woff|woff2|jpg|png|svg)$": "<rootDir>/test/assets-transformer.js"
+    }
+  }
 
