@@ -1,6 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { createStore, combineReducers, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
+import { Provider } from 'react-redux';
 import 'bootstrap-sass/assets/stylesheets/_bootstrap.scss';
-import AppComponent from './components/App';
+import AppContainer from './containers/AppContainer';
+import AppReducer from './reducers/AppReducer';
 
-ReactDOM.render(<AppComponent />, document.getElementById('root'));
+const combinedReducers = combineReducers({
+  AppReducer,
+});
+const store = createStore(combinedReducers, applyMiddleware(thunk));
+
+ReactDOM.render(
+  <Provider store={store}>
+    <AppContainer />
+  </Provider>,
+  document.getElementById('root'),
+);
