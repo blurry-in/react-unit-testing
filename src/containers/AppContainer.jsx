@@ -17,7 +17,10 @@ class AppContainer extends React.Component {
 
   render() {
     return (
-      <AppComponent onImageDelete={this.onImageDelete} appData={this.props.appData} />
+      <AppComponent
+        onImageDelete={this.onImageDelete}
+        appData={this.props.appData}
+        />
     );
   }
 }
